@@ -1,4 +1,8 @@
 {
+    "version": {
+      "v": "1",
+      "url": "https://raw.githubusercontent.com/Xkelling/Replace-Window/main/Replace%20Window.lua"
+    },
     "news": {
       "3": {
         "date": "14.06.2023",
