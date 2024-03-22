@@ -1,6 +1,6 @@
 {
     "version": {
-        "v": "12.0.2.2",
+        "v": "12.0.2.3",
         "url": "https://raw.githubusercontent.com/Xkelling/Replace-Window/main/Replace%20Window.lua"
     },
     "news": [
@@ -143,6 +143,13 @@
             "title": "Обновление #12.0.2.2",
             "text": [
                 "Фикс краша скрипта"
+            ]
+        },
+        {
+            "date": "22.03.2024",
+            "title": "Обновление #12.0.2.3",
+            "text": [
+                "Фикс сообщений от администрации"
             ]
         }
     ]
