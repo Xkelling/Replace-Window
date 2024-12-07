@@ -1,6 +1,6 @@
 script_name('Replace Window')
 script_author('Rice.')
-script_version('12.0.2.5')
+script_version('12.0.2.6')
 script_properties('work-in-pause') 
 
 local imgui_check, imgui			= pcall(require, 'mimgui')
@@ -733,7 +733,7 @@ local messageFrame = imgui.OnFrame(
 )
 
 local marketFrame = imgui.OnFrame(
-	function() return not marketBool.always[0] and marketBool.now[0] and not isPauseMenuActive() and not sampIsScoreboardOpen() end,
+	function() return not marketBool.always[0] and marketBool.now[0] and not isPauseMenuActive() and not sampIsScoreboardOpen() and not cursorHoveredWindow(imgui.ImVec2(marketSize.x[0], marketSize.y[0])) end,
 	function(player)
 		player.HideCursor = true
 		local sx, sy = getScreenResolution()
@@ -751,6 +751,13 @@ local marketFrame = imgui.OnFrame(
 		imgui.PopStyleColor(2)
 	end
 )
+
+local resX, resY = getScreenResolution()
+function cursorHoveredWindow(size)
+    local px, py = getCursorPos()
+    local wp = imgui.ImVec2((resX - size.x) / 2, resY - size.y - 5)
+    return (px >= wp.x and px <= (wp.x + size.x) and py >= wp.y and py <= (wp.y + size.y))
+end
 
 function statsAllTime()
 	if imgui.BeginPopupModal(u8('Статистика за всё время'), _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoMove) then
@@ -955,7 +962,7 @@ function samp.onServerMessage(color, text)
 		end
 	end
 
-	if color == -2686721 and text:find('.- .-: .+') and notifications[8][3][0] and not text:find('Сообщение до редакции:') and not text:find('%[FOREVER%]') and not text:find('%[Cобиратели%]') and not text:find('%[Риелторское агенство%]') and not text:find('%[PREMIUM%]') then
+	if color == -2686721 and text:find('^%s*Разработчик root: .+') and notifications[8][3][0] then
 		sendTelegram('[Сообщения от Администрации] ' .. text)
 	end
 
